@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.network.FetchJokesAsyncTask;
 
 import butterknife.BindView;
@@ -23,10 +21,8 @@ import de.s3xy4ngyc.jokes.jokesApi.model.Joke;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment implements FetchJokesAsyncTask.JokeView {
+public class BaseJokeFragment extends Fragment implements FetchJokesAsyncTask.JokeView {
 
-    @BindView(R.id.adView)
-    AdView mAdView;
     @BindView(R.id.btnTellJoke)
     Button mBtnTellJoke;
     @BindView(R.id.loading_indicator)
@@ -36,14 +32,7 @@ public class MainActivityFragment extends Fragment implements FetchJokesAsyncTas
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-
         ButterKnife.bind(this, root);
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        mAdView.loadAd(adRequest);
-
         return root;
     }
 
