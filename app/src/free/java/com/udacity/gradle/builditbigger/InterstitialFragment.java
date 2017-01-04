@@ -15,6 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * Extended {@link BaseJokeFragment} that adds Advertisements
+ *
  * @author Angelo Rüggeberg <s3xy4ngc@googlemail.com>
  */
 public class InterstitialFragment extends BaseJokeFragment {
