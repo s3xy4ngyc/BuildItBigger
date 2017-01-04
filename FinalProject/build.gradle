@@ -18,3 +18,24 @@ allprojects {
         jcenter()
     }
 }
+
+task testApp {
+    dependsOn(['startServer', 'runTests', 'shutdownServer'])
+}
+
+task startServer {
+    dependsOn ':backend:appengineRun'
+    evaluationDependsOn(":backend")
+    project(':backend').appengine.daemon = true
+}
+
+task runTests {
+    dependsOn ':app:connectedAndroidTest'
+    mustRunAfter "startServer"
+}
+
+task shutdownServer {
+    dependsOn ':backend:appengineStop'
+    mustRunAfter "runTests"
+
+}
