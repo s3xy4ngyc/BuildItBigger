@@ -6,30 +6,31 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.udacity.gradle.builditbigger.network.FetchJokesAsyncTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.s3xy.CaptainFunny;
+import de.s3xy.jokingandroidlibrary.JokeActivity;
+import de.s3xy4ngyc.jokes.jokesApi.model.Joke;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements FetchJokesAsyncTask.JokeView {
 
     @BindView(R.id.adView)
     AdView mAdView;
-
-    @Nullable
-    private Toast mToast;
-
-    public MainActivityFragment() {
-    }
+    @BindView(R.id.btnTellJoke)
+    Button mBtnTellJoke;
+    @BindView(R.id.loading_indicator)
+    ProgressBar mLoadingIndicator;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,9 +39,6 @@ public class MainActivityFragment extends Fragment {
 
         ButterKnife.bind(this, root);
 
-//        // Create an ad request. Check logcat output for the hashed device ID to
-//        // get test ads on a physical device. e.g.
-//        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
@@ -52,13 +50,23 @@ public class MainActivityFragment extends Fragment {
 
     @OnClick(R.id.btnTellJoke)
     void tellJoke() {
-        if (mToast != null) {
-            mToast.cancel();
-        }
-
-        mToast = Toast.makeText(getContext(), CaptainFunny.tellJoke(), Toast.LENGTH_SHORT);
-        mToast.show();
-
+        fetchJoke();
     }
 
+    protected void fetchJoke() {
+        mBtnTellJoke.setVisibility(View.GONE);
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        new FetchJokesAsyncTask().execute(this);
+    }
+
+    @Override
+    public void showJoke(@Nullable Joke joke) {
+
+        mBtnTellJoke.setVisibility(View.VISIBLE);
+        mLoadingIndicator.setVisibility(View.GONE);
+
+        if (joke != null) {
+            startActivity(JokeActivity.buildIntent(getContext(), joke.getContent()));
+        }
+    }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/activity_joke"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.s3xy.jokingandroidlibrary.JokeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_joke"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_joke"
+        app:layout_constraintRight_toRightOf="@+id/activity_joke"
+        app:layout_constraintTop_toTopOf="@+id/activity_joke"
+        tools:text="Bacon ipsum dolor amet flank landjaeger bresaola sausage biltong prosciutto ham swine shank porchetta spare ribs. Ham beef pig pork loin. Swine chicken ribeye, kevin ball tip leberkas alcatra short ribs tail t-bone bacon shankle capicola. Meatloaf cow t-bone tenderloin alcatra, pastrami chicken. Picanha short ribs shankle jerky, chuck drumstick salami t-bone spare ribs boudin meatloaf."/>
+
+</android.support.constraint.ConstraintLayout>
